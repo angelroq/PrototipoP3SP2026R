@@ -58,6 +58,7 @@ Controlador\clsSeguridad.class
 Vista\frmProcesoAplicacionUsuario$4.class
 Vista\frmMantenimientoAplicaciones$6.class
 Vista\MdiSeguridad$9.class
+Controlador\clsPeliculas.class
 Vista\frmMantenimientoAplicaciones$9.class
 Modelo\AplicacionesDAO.class
 Vista\frmProcesoAplicacionPerfil$5.class
@@ -83,6 +84,7 @@ Vista\frmMantenimientoUsuario$6.class
 Vista\frmProcesoAplicacionUsuario$7.class
 Modelo\UsuarioDAO.class
 Controlador\clsUsuario.class
+Vista\frmMantenimientoPeliculas.class
 Controlador\clsUsuarioConectado.class
 Vista\frmRestablecerContraseña$3.class
 Vista\frmLogin$4.class
