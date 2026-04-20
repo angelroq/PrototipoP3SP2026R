@@ -21,6 +21,8 @@ public class clsPeliculas {
         this.Idioma = Idioma;
         this.precio = precio;      
     }
+    public clsPeliculas(){
+    }
 
     public int getIdPeliculas() {
         return idPeliculas;

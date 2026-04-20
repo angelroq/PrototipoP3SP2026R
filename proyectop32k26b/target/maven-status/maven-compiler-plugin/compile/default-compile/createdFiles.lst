@@ -15,6 +15,7 @@ Vista\frmProcesoPerfilUsuario$3.class
 Vista\frmMantenimientoUsuario$7.class
 Vista\frmProcesoAplicacionUsuario$8.class
 Vista\frmProcesoAplicacionPerfil$9.class
+Modelo\clsPeliculasDAO.class
 Vista\MdiSeguridad$5.class
 Vista\frmLogin$5.class
 Vista\frmMantenimientoAplicaciones$5.class
@@ -58,6 +59,7 @@ Controlador\clsSeguridad.class
 Vista\frmProcesoAplicacionUsuario$4.class
 Vista\frmMantenimientoAplicaciones$6.class
 Vista\MdiSeguridad$9.class
+Controlador\clsPeliculas.class
 Vista\frmMantenimientoAplicaciones$9.class
 Modelo\AplicacionesDAO.class
 Vista\frmProcesoAplicacionPerfil$5.class
