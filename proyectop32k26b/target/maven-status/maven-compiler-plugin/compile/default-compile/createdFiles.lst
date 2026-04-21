@@ -10,6 +10,7 @@ Vista\MdiSeguridad$11.class
 Vista\frmProcesoPerfilUsuario$6.class
 Controlador\clsPerfil.class
 Vista\frmMantenimientoAplicaciones.class
+Vista\frmMantenimientoPeliculas$5.class
 Modelo\PerfilDAO.class
 Vista\frmProcesoPerfilUsuario$3.class
 Vista\frmMantenimientoUsuario$7.class
@@ -19,15 +20,18 @@ Vista\MdiSeguridad$5.class
 Vista\frmLogin$5.class
 Vista\frmMantenimientoAplicaciones$5.class
 Vista\MdiSeguridad$17.class
+Vista\frmMantenimientoPeliculas$3.class
 Vista\frmMantenimientoPerfil$2.class
 Vista\MdiSeguridad$2.class
 Vista\frmMantenimientoAplicaciones$2.class
 Vista\frmProcesoAplicacionPerfil$3.class
 Vista\frmProcesoAplicacionUsuario.class
+Vista\frmMantenimientoPeliculas$6.class
 Vista\frmMantenimientoBitacora$5.class
 Vista\frmMantenimientoAplicaciones$1.class
 Vista\frmMantenimientoPerfil.class
 Vista\frmMantenimientoPerfil$5.class
+Modelo\PeliculasDAO.class
 Vista\frmMantenimientoUsuario$9.class
 Vista\frmProcesoAplicacionUsuario$6.class
 Vista\frmProcesoPerfilUsuario$1.class
@@ -35,6 +39,7 @@ Vista\frmLogin$1.class
 Vista\frmMantenimientoAplicaciones$8.class
 Vista\MdiSeguridad$8.class
 Vista\MdiSeguridad$1.class
+Vista\frmMantenimientoPeliculas$2.class
 Vista\frmRestablecerContraseña.class
 Vista\frmMantenimientoUsuario$2.class
 Vista\frmProcesoAplicacionPerfil$10.class
@@ -53,6 +58,7 @@ Vista\frmMantenimientoUsuario$8.class
 Vista\frmProcesoPerfilUsuario$2.class
 Vista\frmMantenimientoAplicaciones$7.class
 Controlador\clsAplicaciones.class
+Vista\frmMantenimientoPeliculas$1.class
 Vista\frmProcesoPerfilUsuario.class
 Vista\frmProcesoAplicacionPerfil$4.class
 Controlador\clsSeguridad.class
@@ -107,6 +113,7 @@ Vista\frmMantenimientoPerfil$1.class
 Vista\frmProcesoAplicacionUsuario$12.class
 Vista\frmProcesoPerfilUsuario$5.class
 Vista\MdiSeguridad$15.class
+Vista\frmMantenimientoPeliculas$4.class
 Modelo\AsignacionAplicacionUsuarioDAO.class
 Vista\frmProcesoAplicacionPerfil$7.class
 Vista\frmLogin$3.class
