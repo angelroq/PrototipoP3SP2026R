@@ -3,7 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Vista;
-
+import Controlador.clsSeguridad;
+import Controlador.clsBitacora;
+import Controlador.clsPeliculas;
+import Controlador.clsPerfil;
+import Controlador.clsUsuarioConectado;
+import Modelo.BitacoraDAO;
+import Modelo.Conexion;
+import Modelo.PeliculasDAO;
+import Modelo.PerfilDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Angel R
@@ -15,8 +32,85 @@ public class frmMantenimientoPeliculas extends javax.swing.JInternalFrame {
      */
     public frmMantenimientoPeliculas() {
         initComponents();
+        llenadoDeTablas();
+    }
+    
+    private clsBitacora crearBitacora(String accion) {
+    clsBitacora bitacora = new clsBitacora();
+
+    try {
+        BitacoraDAO dao = new BitacoraDAO();
+
+        // Usuario conectado (este era tu error principal)
+        bitacora.setUsucodigo(1);
+        int usuario = 1; // valor por defecto
+
+        try {
+        usuario = clsUsuarioConectado.getUsuId();
+        } catch (Exception e) {
+    System.out.println("Usuario no definido, usando default");
     }
 
+bitacora.setUsucodigo(usuario);
+
+        // Código de aplicación (puedes dejar fijo si no tienes sistema de apps)
+        bitacora.setAplcodigo(1);
+
+        // Fecha actual
+        bitacora.setBitfecha(dao.fechaActual());
+
+        // IP y nombre del equipo
+        bitacora.setBitip(java.net.InetAddress.getLocalHost().getHostAddress());
+        bitacora.setBitequipo(java.net.InetAddress.getLocalHost().getHostName());
+
+        // Acción
+        bitacora.setBitaccion(accion);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return bitacora;
+}
+    
+   public void llenadoDeTablas() {
+        DefaultTableModel modelo = new DefaultTableModel();
+    modelo.addColumn("Id Pelicula");
+    modelo.addColumn("Nombre ");
+    modelo.addColumn("Clasificación");
+    modelo.addColumn("Genero");
+    modelo.addColumn("Subtitulado");
+    modelo.addColumn("Idioma");
+    modelo.addColumn("Precio");
+
+    tablaPeliculas.setModel(modelo);
+
+    PeliculasDAO dao = new PeliculasDAO();
+    clsBitacora bitacora = crearBitacora("Consulta peliculas");
+    List<clsPeliculas> listaPeliculas = dao.obtenerPeliculas(bitacora);
+
+    String[] dato = new String[3];
+    for (clsPeliculas p : listaPeliculas) {
+        dato[0] = String.valueOf(p.getIdPeliculas());
+        dato[1] = p.getNombre();
+        dato[2] = p.getClasificacion();
+        dato[3] = p.getGenero();
+        dato[4] = p.getSubtitulado();
+        dato[5] = p.getIdioma();
+        dato[6] = String.valueOf(p.getPrecio());
+        modelo.addRow(dato);
+    }
+    }
+public void limpiarTextos()
+    {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtClasificacion.setText(""); 
+        txtGenero.setText(""); 
+        txtSubtitulado.setText(""); 
+        txtIdioma.setText(""); 
+        txtPrecio.setText(""); 
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,17 +149,42 @@ public class frmMantenimientoPeliculas extends javax.swing.JInternalFrame {
         setTitle("Mantenimiento Peliculas");
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("ID A BUSCAR");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("ID");
 
@@ -80,6 +199,12 @@ public class frmMantenimientoPeliculas extends javax.swing.JInternalFrame {
         jLabel7.setText("IDIOMA");
 
         jLabel8.setText("PRECIO");
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Peliculas");
@@ -208,6 +333,141 @@ public class frmMantenimientoPeliculas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+limpiarTextos();
+        habilitarBotones();
+    }                                          
+    
+    public void habilitarBotones()
+    {
+        btnRegistrar.setEnabled(true);
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+    }
+    public void desHabilitarBotones()
+    {
+        btnRegistrar.setEnabled(false);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+    }    
+    public void esperar5min(){
+        try {
+            //Ponemos a "Dormir" el programa durante los minutos que querramos
+            Thread.sleep(5*60*1000);
+        } catch (Exception e) {
+            System.out.println(e);}
+      
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if(txtCodigo.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "Ingrese un código");
+        return;
+    }
+
+    clsPeliculas peliculas = new clsPeliculas();
+    peliculas.setIdPeliculas(Integer.parseInt(txtCodigo.getText()));
+
+    PeliculasDAO dao = new PeliculasDAO();
+    clsBitacora bitacora = crearBitacora("Eliminar perfil");
+dao.eliminarPeliculas(peliculas, bitacora);
+
+    JOptionPane.showMessageDialog(null, "Peliculas eliminado");
+
+    llenadoDeTablas();
+    limpiarTextos();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+         if(txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()|| txtClasificacion.getText().isEmpty()|| txtGenero.getText().isEmpty()|| txtSubtitulado.getText().isEmpty()|| txtIdioma.getText().isEmpty()|| txtPrecio.getText().isEmpty()){
+    JOptionPane.showMessageDialog(null, "Complete los campos");
+    return;
+    } 
+    
+    clsPeliculas peliculas = new clsPeliculas();
+    peliculas.setIdPeliculas(Integer.parseInt(txtCodigo.getText()));
+    peliculas.setNombre(txtNombre.getText());
+    peliculas.setClasificacion(txtClasificacion.getText());
+    peliculas.setGenero(txtGenero.getText());
+    peliculas.setSubtitulado(txtSubtitulado.getText());
+    peliculas.setIdioma(txtIdioma.getText());
+    peliculas.setPrecio(Double.parseDouble(txtPrecio.getText()));
+    
+
+    PeliculasDAO dao = new PeliculasDAO();
+    clsBitacora bitacora = crearBitacora("Insertar pelicula");
+    dao.insertarPeliculas(peliculas, bitacora);
+
+    JOptionPane.showMessageDialog(null, "Pelicula registrado");
+    
+    
+
+    llenadoDeTablas();
+    limpiarTextos();
+                       
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        PeliculasDAO dao = new PeliculasDAO();
+    if(txtBuscar.getText().isEmpty()){
+    JOptionPane.showMessageDialog(null, "Ingrese un ID");
+    return;
+}
+    int id = Integer.parseInt(txtBuscar.getText());
+
+    clsBitacora bitacora = crearBitacora("Buscar pelicula");
+clsPeliculas peliculas = dao.obtenerPeliculaPorId(id, bitacora);
+
+    if(peliculas != null){
+        txtCodigo.setText(String.valueOf(peliculas.getIdPeliculas()));
+        txtNombre.setText(peliculas.getNombre());
+        txtClasificacion.setText(peliculas.getClasificacion());
+        txtGenero.setText(peliculas.getGenero());
+        txtSubtitulado.setText(peliculas.getSubtitulado());
+        txtIdioma.setText(peliculas.getIdioma());
+        txtPrecio.setText(String.valueOf(peliculas.getPrecio()));
+        
+    }else{
+        JOptionPane.showMessageDialog(null, "Pelicula no encontrado");
+    }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if(txtCodigo.getText().isEmpty()){
+    JOptionPane.showMessageDialog(null, "Seleccione un registro");
+    return;
+    }
+    
+
+
+    clsPeliculas peliculas = new clsPeliculas();
+    peliculas.setIdPeliculas(Integer.parseInt(txtCodigo.getText()));
+    peliculas.setNombre(txtNombre.getText());
+    peliculas.setClasificacion(txtClasificacion.getText());
+    peliculas.setGenero(txtGenero.getText());
+    peliculas.setSubtitulado(txtSubtitulado.getText());
+    peliculas.setIdioma(txtIdioma.getText());
+    peliculas.setPrecio(Double.parseDouble(txtPrecio.getText()));
+    
+
+    PeliculasDAO dao = new PeliculasDAO();
+    clsBitacora bitacora = crearBitacora("Modificar pelicula");
+dao.actualizarPeliculas(peliculas, bitacora);
+
+    JOptionPane.showMessageDialog(null, "Pelicula modificado");
+
+    llenadoDeTablas();
+    limpiarTextos();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
