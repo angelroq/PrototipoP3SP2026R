@@ -10,9 +10,10 @@ package Controlador;
  */
 public class clsPeliculas {
     int idPeliculas;
-    private String Nombre, Clasificacion, Genero, Subtitulado, Idioma, precio;
+    private String Nombre, Clasificacion, Genero, Subtitulado, Idioma;
+    private Double precio;
 
-    public clsPeliculas(int idPeliculas, String Nombre, String Clasificacion, String Genero, String Subtitulado, String Idioma, String precio) {
+    public clsPeliculas(int idPeliculas, String Nombre, String Clasificacion, String Genero, String Subtitulado, String Idioma, Double precio) {
         this.idPeliculas = idPeliculas;
         this.Nombre = Nombre;
         this.Clasificacion = Clasificacion;
@@ -20,6 +21,8 @@ public class clsPeliculas {
         this.Subtitulado = Subtitulado;
         this.Idioma = Idioma;
         this.precio = precio;      
+    }
+    public clsPeliculas(){
     }
 
     public int getIdPeliculas() {
@@ -70,11 +73,11 @@ public class clsPeliculas {
         this.Idioma = Idioma;
     }
 
-    public String getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
