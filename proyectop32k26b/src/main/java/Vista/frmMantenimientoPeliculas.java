@@ -6,12 +6,10 @@ package Vista;
 import Controlador.clsSeguridad;
 import Controlador.clsBitacora;
 import Controlador.clsPeliculas;
-import Controlador.clsPerfil;
 import Controlador.clsUsuarioConectado;
 import Modelo.BitacoraDAO;
 import Modelo.Conexion;
 import Modelo.PeliculasDAO;
-import Modelo.PerfilDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -42,8 +40,8 @@ public class frmMantenimientoPeliculas extends javax.swing.JInternalFrame {
         BitacoraDAO dao = new BitacoraDAO();
 
         // Usuario conectado (este era tu error principal)
-        bitacora.setUsucodigo(1);
-        int usuario = 1; // valor por defecto
+        bitacora.setUsucodigo(777);
+        int usuario = 777; // valor por defecto
 
         try {
         usuario = clsUsuarioConectado.getUsuId();
@@ -54,7 +52,7 @@ public class frmMantenimientoPeliculas extends javax.swing.JInternalFrame {
 bitacora.setUsucodigo(usuario);
 
         // Código de aplicación (puedes dejar fijo si no tienes sistema de apps)
-        bitacora.setAplcodigo(1);
+        bitacora.setAplcodigo(777);
 
         // Fecha actual
         bitacora.setBitfecha(dao.fechaActual());
@@ -74,7 +72,7 @@ bitacora.setUsucodigo(usuario);
 }
     
    public void llenadoDeTablas() {
-        DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("Id Pelicula");
     modelo.addColumn("Nombre ");
     modelo.addColumn("Clasificación");
@@ -89,7 +87,7 @@ bitacora.setUsucodigo(usuario);
     clsBitacora bitacora = crearBitacora("Consulta peliculas");
     List<clsPeliculas> listaPeliculas = dao.obtenerPeliculas(bitacora);
 
-    String[] dato = new String[3];
+    String[] dato = new String[7];
     for (clsPeliculas p : listaPeliculas) {
         dato[0] = String.valueOf(p.getIdPeliculas());
         dato[1] = p.getNombre();
